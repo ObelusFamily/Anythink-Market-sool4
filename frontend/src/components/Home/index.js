@@ -27,6 +27,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Home extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      items: [],
+    };
+  }
+
   componentWillMount() {
     const tab = "all";
     const itemsPromise = agent.Items.all;
@@ -45,11 +52,11 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home-page">
-        <Banner />
+        <Banner onItemsChange={(items) => this.setState({ items })} />
 
         <div className="container page">
           <Tags tags={this.props.tags} onClickTag={this.props.onClickTag} />
-          <MainView />
+          <MainView items={this.state.items} />
         </div>
       </div>
     );
